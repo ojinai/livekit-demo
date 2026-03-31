@@ -1,7 +1,12 @@
 "use client";
 
-import { LiveKitRoom, RoomAudioRenderer, useConnectionState } from "@livekit/components-react";
-import { ConnectionState } from "livekit-client";
+import {
+	LiveKitRoom,
+	RoomAudioRenderer,
+	useConnectionState,
+	useTracks,
+} from "@livekit/components-react";
+import { ConnectionState, ParticipantKind, Track } from "livekit-client";
 import { useCallback, useEffect, useState } from "react";
 import AvatarStage from "./avatar-stage";
 import ControlBar from "./control-bar";
@@ -19,12 +24,20 @@ function SessionInner({ onDisconnect }: { onDisconnect: () => void }) {
 	const connectionState = useConnectionState();
 	const [timedOut, setTimedOut] = useState(false);
 
+	const tracks = useTracks([{ source: Track.Source.Camera, withPlaceholder: false }], {
+		onlySubscribed: true,
+	});
+	const hasAgent = tracks.some((t) => t.participant.kind === ParticipantKind.AGENT);
+
 	useEffect(() => {
-		if (connectionState !== ConnectionState.Connected) return;
+		if (connectionState !== ConnectionState.Connected || hasAgent) {
+			setTimedOut(false);
+			return;
+		}
 
 		const timer = setTimeout(() => setTimedOut(true), AGENT_TIMEOUT_MS);
 		return () => clearTimeout(timer);
-	}, [connectionState]);
+	}, [connectionState, hasAgent]);
 
 	if (connectionState === ConnectionState.Connecting) {
 		return (
