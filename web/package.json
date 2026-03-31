@@ -1,0 +1,43 @@
+{
+	"name": "ojin-avatar-demo",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev --turbopack",
+		"build": "next build",
+		"start": "next start",
+		"lint": "biome lint .",
+		"lint:fix": "biome lint --fix .",
+		"format": "biome format .",
+		"format:fix": "biome format --fix .",
+		"check": "biome check .",
+		"check:fix": "biome check --fix .",
+		"test": "vitest run",
+		"test:watch": "vitest"
+	},
+	"dependencies": {
+		"@livekit/components-react": "^2.9.0",
+		"livekit-client": "^2.15.0",
+		"livekit-server-sdk": "^2.9.0",
+		"next": "^15.4.0",
+		"react": "^19.0.0",
+		"react-dom": "^19.0.0"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.0",
+		"@tailwindcss/postcss": "^4.0.0",
+		"@testing-library/jest-dom": "^6.9.1",
+		"@testing-library/react": "^16.3.2",
+		"@types/node": "^22.0.0",
+		"@types/react": "^19.0.0",
+		"@types/react-dom": "^19.0.0",
+		"@vitejs/plugin-react": "^6.0.1",
+		"jsdom": "^29.0.1",
+		"tailwindcss": "^4.0.0",
+		"typescript": "^5.7.0",
+		"vitest": "^4.1.2"
+	},
+	"pnpm": {
+		"onlyBuiltDependencies": ["@biomejs/biome"]
+	}
+}
