@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+	--color-surface: #0a0a0f;
+	--color-surface-raised: rgba(255, 255, 255, 0.06);
+	--color-surface-hover: rgba(255, 255, 255, 0.1);
+	--color-border: rgba(255, 255, 255, 0.1);
+	--color-accent: #6366f1;
+	--color-accent-hover: #818cf8;
+	--color-danger: #ef4444;
+	--color-text-primary: #f0f0f5;
+	--color-text-secondary: #8888a0;
+}
+
+body {
+	background: var(--color-surface);
+	color: var(--color-text-primary);
+	font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* Pulsing ring animation for the connect button */
+@keyframes pulse-ring {
+	0% {
+		transform: scale(1);
+		opacity: 0.4;
+	}
+	100% {
+		transform: scale(1.4);
+		opacity: 0;
+	}
+}
+
+.pulse-ring {
+	animation: pulse-ring 1.5s ease-out infinite;
+}
