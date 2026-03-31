@@ -8,6 +8,9 @@ const hits = new Map<string, number[]>();
 function isRateLimited(ip: string): boolean {
 	const now = Date.now();
 	const timestamps = (hits.get(ip) ?? []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+	if (timestamps.length === 0) {
+		hits.delete(ip);
+	}
 	timestamps.push(now);
 	hits.set(ip, timestamps);
 	return timestamps.length > RATE_LIMIT_MAX;
@@ -40,6 +43,7 @@ export async function POST(req: NextRequest) {
 		const token = new AccessToken(apiKey, apiSecret, {
 			identity: participantName,
 			name: participantName,
+			ttl: "10m",
 		});
 
 		token.addGrant({

@@ -21,6 +21,8 @@ describe("POST /api/token", () => {
 		vi.stubEnv("LIVEKIT_API_SECRET", "test-secret");
 		vi.stubEnv("LIVEKIT_URL", "wss://test.livekit.cloud");
 
+		vi.resetModules();
+
 		const { POST } = await import("@/app/api/token/route");
 		const response = await POST(mockRequest());
 		const data = await response.json();
