@@ -26,7 +26,7 @@ cp .env.example .env
 
 3. Create `web/.env.local` with your LiveKit credentials:
 
-```
+```env
 LIVEKIT_API_KEY=your_api_key
 LIVEKIT_API_SECRET=your_api_secret
 LIVEKIT_URL=wss://your-project.livekit.cloud
