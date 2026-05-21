@@ -57,10 +57,10 @@ export default function Home() {
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-center h-screen gap-8">
-			<div className="flex flex-col items-center gap-3">
+		<main className="grid min-h-dvh grid-rows-[minmax(0,1fr)_auto_minmax(0,1fr)] justify-items-center px-6 py-8">
+			<div className="flex max-w-md flex-col items-center gap-3 self-end pb-8">
 				<h1 className="text-3xl font-semibold tracking-tight">Ojin Demo</h1>
-				<p className="text-text-secondary text-center max-w-md">
+				<p className="text-center text-text-secondary">
 					Start a conversation with an interactive avatar powered by Ojin, the real-time AI
 					platform.
 				</p>
@@ -78,7 +78,7 @@ export default function Home() {
 				</button>
 			</div>
 
-			{error && <p className="text-danger text-sm">{error}</p>}
-		</div>
+			{error && <p className="pt-8 text-sm text-danger">{error}</p>}
+		</main>
 	);
 }
