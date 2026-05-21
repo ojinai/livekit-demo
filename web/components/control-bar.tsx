@@ -1,6 +1,7 @@
 "use client";
 
-import { useLocalParticipant } from "@livekit/components-react";
+import { useIsSpeaking, useLocalParticipant, useTrackVolume } from "@livekit/components-react";
+import { LocalAudioTrack } from "livekit-client";
 import { useCallback, useState } from "react";
 
 function MicIcon({ muted }: { muted: boolean }) {
@@ -68,37 +69,84 @@ function PhoneOffIcon() {
 }
 
 export default function ControlBar({ onDisconnect }: { onDisconnect: () => void }) {
-	const { localParticipant } = useLocalParticipant();
-	const [micMuted, setMicMuted] = useState(false);
+	const { localParticipant, isMicrophoneEnabled, microphoneTrack, lastMicrophoneError } =
+		useLocalParticipant();
+	const isSpeaking = useIsSpeaking(localParticipant);
+	const localMicTrack =
+		microphoneTrack?.track instanceof LocalAudioTrack ? microphoneTrack.track : undefined;
+	const micVolume = useTrackVolume(localMicTrack);
+	const [isTogglingMic, setIsTogglingMic] = useState(false);
+	const [toggleError, setToggleError] = useState<string | null>(null);
+
+	const micError = lastMicrophoneError?.message ?? toggleError;
+	const micMuted = !isMicrophoneEnabled;
+	const micStatus = micError
+		? "Mic error"
+		: isMicrophoneEnabled
+			? isSpeaking
+				? "Speaking"
+				: "Mic live"
+			: "Mic off";
+	const level = Math.max(micVolume, isSpeaking ? 0.32 : 0);
 
 	const toggleMic = useCallback(async () => {
+		setIsTogglingMic(true);
+		setToggleError(null);
 		try {
-			await localParticipant.setMicrophoneEnabled(micMuted);
-			setMicMuted(!micMuted);
+			await localParticipant.setMicrophoneEnabled(!isMicrophoneEnabled);
 		} catch (err) {
 			console.error("Failed to toggle microphone:", err);
+			setToggleError(err instanceof Error ? err.message : "Failed to toggle microphone");
+		} finally {
+			setIsTogglingMic(false);
 		}
-	}, [localParticipant, micMuted]);
+	}, [localParticipant, isMicrophoneEnabled]);
 
 	return (
-		<div className="flex items-center gap-3 px-5 py-3 rounded-full bg-surface-raised backdrop-blur-xl ring-1 ring-border">
+		<div className="flex items-center gap-3 rounded-full bg-surface-raised px-5 py-3 ring-1 ring-border backdrop-blur-xl">
 			<button
 				type="button"
 				onClick={toggleMic}
-				className={`p-3 rounded-full transition-colors cursor-pointer ${
-					micMuted
+				disabled={isTogglingMic}
+				className={`cursor-pointer rounded-full p-3 transition-colors disabled:cursor-wait disabled:opacity-60 ${
+					micError
 						? "bg-danger/20 text-danger hover:bg-danger/30"
-						: "bg-surface-hover text-text-primary hover:bg-white/15"
+						: micMuted
+							? "bg-danger/20 text-danger hover:bg-danger/30"
+							: "bg-surface-hover text-text-primary hover:bg-white/15"
 				}`}
-				title={micMuted ? "Unmute microphone" : "Mute microphone"}
+				title={micError ? micError : micMuted ? "Unmute microphone" : "Mute microphone"}
 			>
 				<MicIcon muted={micMuted} />
 			</button>
 
+			<div
+				className={`flex min-w-24 items-center gap-2 text-xs ${
+					micError ? "text-danger" : "text-text-secondary"
+				}`}
+				title={micError ?? micStatus}
+			>
+				<div className="flex h-4 items-end gap-0.5" aria-hidden="true">
+					{[0.12, 0.28, 0.44].map((threshold, index) => (
+						<span
+							key={threshold}
+							className={`w-1 rounded-full transition-all ${
+								level >= threshold && !micMuted && !micError ? "bg-accent" : "bg-text-secondary/35"
+							}`}
+							style={{
+								height: `${6 + index * 4}px`,
+								opacity: level >= threshold && !micMuted && !micError ? 1 : 0.45,
+							}}
+						/>
+					))}
+				</div>
+				<span>{micStatus}</span>
+			</div>
+
 			<button
 				type="button"
 				onClick={onDisconnect}
-				className="p-3 rounded-full bg-danger text-white hover:bg-danger/80 transition-colors cursor-pointer"
+				className="cursor-pointer rounded-full bg-danger p-3 text-white transition-colors hover:bg-danger/80"
 				title="End session"
 			>
 				<PhoneOffIcon />

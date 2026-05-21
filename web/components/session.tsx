@@ -71,10 +71,12 @@ function SessionInner({ onDisconnect }: { onDisconnect: () => void }) {
 	}
 
 	return (
-		<div className="flex flex-col items-center justify-center h-screen gap-8">
-			<RoomAudioRenderer />
-			<AvatarStage timedOut={timedOut} onDisconnect={onDisconnect} />
-			<ControlBar onDisconnect={onDisconnect} />
+		<div className="relative h-dvh overflow-hidden">
+			<div className="flex h-full flex-col items-center justify-center gap-8">
+				<RoomAudioRenderer />
+				<AvatarStage timedOut={timedOut} onDisconnect={onDisconnect} />
+				<ControlBar onDisconnect={onDisconnect} />
+			</div>
 			<LatencyDisplay />
 		</div>
 	);
