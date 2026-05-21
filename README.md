@@ -44,4 +44,6 @@ uv run python agent.py dev
 cd web && pnpm dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) and click **Start Session** to begin a conversation with the avatar.
+The frontend defaults to port 3333. Override it with `PORT=4444 pnpm dev` if needed.
+
+Open [http://localhost:3333](http://localhost:3333) and click **Start Session** to begin a conversation with the avatar.
