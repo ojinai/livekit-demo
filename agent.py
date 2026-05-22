@@ -5,7 +5,7 @@ import os
 
 from dotenv import load_dotenv
 from livekit import agents
-from livekit.agents import AgentServer, AgentSession, Agent, room_io
+from livekit.agents import AgentServer, AgentSession, Agent, WorkerOptions, room_io
 from livekit.plugins import noise_cancellation, elevenlabs, google, openai, ojin, silero
 
 load_dotenv()
@@ -264,4 +264,6 @@ async def my_agent(ctx: agents.JobContext):
 
 
 if __name__ == "__main__":
-    agents.cli.run_app(server)
+    # agent_name switches from auto-dispatch (joins every room in the project)
+    # to explicit dispatch
+    agents.cli.run_app(server, WorkerOptions(agent_name="livekit-demo"))
