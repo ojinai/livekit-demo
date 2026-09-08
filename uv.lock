@@ -829,7 +829,7 @@ wheels = [
 [[package]]
 name = "livekit-agents"
 version = "1.8.0"
-source = { git = "https://github.com/ojinai/livekit-agents.git?subdirectory=livekit-agents&branch=feat%2Fojin-stv-avatar#fc9232074a172637cb1af886557ca7117ace3593" }
+source = { git = "https://github.com/ojinai/livekit-agents.git?subdirectory=livekit-agents&branch=feat%2Fojin-stv-avatar#88d00544da2d3d467a0ca9a15ffa6bb349b7c999" }
 dependencies = [
     { name = "aiofiles" },
     { name = "aiohttp" },
@@ -1027,7 +1027,7 @@ wheels = [
 [[package]]
 name = "livekit-plugins-ojin"
 version = "1.8.0"
-source = { git = "https://github.com/ojinai/livekit-agents.git?subdirectory=livekit-plugins%2Flivekit-plugins-ojin&branch=feat%2Fojin-stv-avatar#fc9232074a172637cb1af886557ca7117ace3593" }
+source = { git = "https://github.com/ojinai/livekit-agents.git?subdirectory=livekit-plugins%2Flivekit-plugins-ojin&branch=feat%2Fojin-stv-avatar#88d00544da2d3d467a0ca9a15ffa6bb349b7c999" }
 dependencies = [
     { name = "livekit-agents" },
     { name = "ojin-client", extra = ["stv"] },
