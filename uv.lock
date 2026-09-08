@@ -829,7 +829,7 @@ wheels = [
 [[package]]
 name = "livekit-agents"
 version = "1.8.0"
-source = { git = "https://github.com/journee-live/livekit-agents.git?subdirectory=livekit-agents&branch=feat%2Fojin-stv-avatar#d7c360a7d72da4e68284f2e55828947ada31e35a" }
+source = { git = "https://github.com/ojinai/livekit-agents.git?subdirectory=livekit-agents&branch=feat%2Fojin-stv-avatar#fc9232074a172637cb1af886557ca7117ace3593" }
 dependencies = [
     { name = "aiofiles" },
     { name = "aiohttp" },
@@ -960,7 +960,7 @@ requires-dist = [
     { name = "livekit-plugins-elevenlabs", specifier = ">=1.5" },
     { name = "livekit-plugins-google", specifier = ">=1.5" },
     { name = "livekit-plugins-noise-cancellation", specifier = ">=0.2.5" },
-    { name = "livekit-plugins-ojin", git = "https://github.com/journee-live/livekit-agents.git?subdirectory=livekit-plugins%2Flivekit-plugins-ojin&branch=feat%2Fojin-stv-avatar" },
+    { name = "livekit-plugins-ojin", git = "https://github.com/ojinai/livekit-agents.git?subdirectory=livekit-plugins%2Flivekit-plugins-ojin&branch=feat%2Fojin-stv-avatar" },
     { name = "livekit-plugins-openai", specifier = ">=1.5" },
     { name = "livekit-plugins-silero", specifier = ">=1.5" },
     { name = "python-dotenv", specifier = ">=1.2.1" },
@@ -1027,7 +1027,7 @@ wheels = [
 [[package]]
 name = "livekit-plugins-ojin"
 version = "1.8.0"
-source = { git = "https://github.com/journee-live/livekit-agents.git?subdirectory=livekit-plugins%2Flivekit-plugins-ojin&branch=feat%2Fojin-stv-avatar#d7c360a7d72da4e68284f2e55828947ada31e35a" }
+source = { git = "https://github.com/ojinai/livekit-agents.git?subdirectory=livekit-plugins%2Flivekit-plugins-ojin&branch=feat%2Fojin-stv-avatar#fc9232074a172637cb1af886557ca7117ace3593" }
 dependencies = [
     { name = "livekit-agents" },
     { name = "ojin-client", extra = ["stv"] },
