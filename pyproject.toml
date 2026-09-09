@@ -17,4 +17,4 @@ dependencies = [
 ]
 
 [tool.uv.sources]
-livekit-plugins-ojin = { git = "https://github.com/journee-live/livekit-agents.git", branch = "ojin-agent", subdirectory = "livekit-plugins/livekit-plugins-ojin" }
+livekit-plugins-ojin = { git = "https://github.com/ojinai/livekit-agents.git", branch = "feat/ojin-stv-avatar", subdirectory = "livekit-plugins/livekit-plugins-ojin" }

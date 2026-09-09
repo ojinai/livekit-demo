@@ -5,7 +5,7 @@ import os
 
 from dotenv import load_dotenv
 from livekit import agents
-from livekit.agents import AgentServer, AgentSession, Agent, WorkerOptions, room_io
+from livekit.agents import AgentServer, AgentSession, Agent, room_io
 from livekit.plugins import noise_cancellation, elevenlabs, google, openai, ojin, silero
 
 load_dotenv()
@@ -103,7 +103,9 @@ async def _publish_diagnostic(room, payload: dict) -> None:
 server = AgentServer()
 
 
-@server.rtc_session()
+# agent_name switches from auto-dispatch (joins every room in the project)
+# to explicit dispatch
+@server.rtc_session(agent_name="livekit-demo")
 async def my_agent(ctx: agents.JobContext):
     session = create_session()
 
@@ -264,6 +266,4 @@ async def my_agent(ctx: agents.JobContext):
 
 
 if __name__ == "__main__":
-    # agent_name switches from auto-dispatch (joins every room in the project)
-    # to explicit dispatch
-    agents.cli.run_app(server, WorkerOptions(agent_name="livekit-demo"))
+    agents.cli.run_app(server)
