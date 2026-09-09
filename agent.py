@@ -103,9 +103,10 @@ async def _publish_diagnostic(room, payload: dict) -> None:
 server = AgentServer()
 
 
-# agent_name switches from auto-dispatch (joins every room in the project)
-# to explicit dispatch
-@server.rtc_session(agent_name="livekit-demo")
+# Auto-dispatch: the agent joins every room in the project. Naming the agent
+# here switches to explicit dispatch, which needs the token to ask for it via
+# roomConfig - the demo's token route does not, so the agent would never join.
+@server.rtc_session()
 async def my_agent(ctx: agents.JobContext):
     session = create_session()
 
