@@ -110,12 +110,17 @@ server = AgentServer()
 async def my_agent(ctx: agents.JobContext):
     session = create_session()
 
-    avatar = ojin.AvatarSession()
+    # Allow enough time for the avatar service to start and report session readiness.
+    avatar = ojin.AvatarSession(
+        session_ready_timeout=210.0,
+        first_frame_timeout=45.0,
+    )
 
     ctx.add_shutdown_callback(avatar.aclose)
 
     try:
-        await asyncio.wait_for(avatar.start(session, room=ctx.room), timeout=30.0)
+        # Let AvatarSession's readiness timeout cover the service startup window.
+        await avatar.start(session, room=ctx.room)
         await asyncio.wait_for(
             session.start(
                 room=ctx.room,

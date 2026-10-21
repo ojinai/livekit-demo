@@ -12,7 +12,8 @@ import AvatarStage from "./avatar-stage";
 import ControlBar from "./control-bar";
 import LatencyDisplay from "./latency-display";
 
-const AGENT_TIMEOUT_MS = 30_000;
+// Allow enough time for the agent to initialize the avatar session.
+const AGENT_TIMEOUT_MS = 210_000;
 
 interface SessionProps {
 	token: string;

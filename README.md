@@ -2,19 +2,72 @@
 
 A LiveKit agent with an Ojin avatar frontend for real-time interactive avatar sessions.
 
+## Run the demo with an AI coding agent
+
+Copy this prompt into your coding agent to get help setting up the demo:
+
+```text
+Help me run the Ojin LiveKit avatar demo:
+https://github.com/ojinai/livekit-demo
+
+If this repository is not already in your workspace, clone it from the URL
+above. Then read its current README and guide me through setup. Give me exactly
+one action per reply, then wait for me to confirm before giving the next action;
+do not list later steps in advance. Check the installed tools before asking me
+to install anything. If uv is missing, guide me through installing it using the
+official instructions at https://docs.astral.sh/uv/getting-started/installation/.
+If uv is available but no compatible Python is installed, use
+`uv python install 3.12` instead of sending me to install Python separately.
+Check whether pnpm is available. If it is not, determine the simplest way to
+run it on this machine and guide me through that setup, using the official
+instructions at https://pnpm.io/installation if needed.
+Use the credential checklist to tell me which account or value to get next, and
+link to the official page. Do not ask me to paste secrets into chat: tell me
+which local env file to fill in and never print its contents. Once setup is
+complete, start the agent and web app and give me the local URL to open. If
+anything fails, explain the issue and the next action. Do not change source code
+unless I approve first.
+```
+
 ## Prerequisites
 
-- Python 3.10–3.12
-- Node.js 18+
-- [uv](https://docs.astral.sh/uv/) package manager
-- API keys for: LiveKit, Ojin, ElevenLabs, OpenAI, Deepgram
+- Python 3.10–3.12 (`uv` can install a compatible version for you)
+- Node.js 18.18+
+- [uv](https://docs.astral.sh/uv/getting-started/installation/) package manager
+- [pnpm](https://pnpm.io/installation) package manager
+
+## Credentials
+
+The default agent pipeline uses the following credentials. Create `.env` from
+`.env.example` for the agent, and put the three LiveKit values in
+`web/.env.local` as well; the web app uses them to create session tokens.
+
+| Environment variable | Used for | Where to get it |
+| --- | --- | --- |
+| `OJIN_API_KEY` | Connect to Ojin | [Ojin API key instructions](https://docs.ojin.ai/getting-started/authentication.md) |
+| `OJIN_CONFIG_ID` | Select the avatar persona | Create a Presence or Portrait configuration in the [Ojin dashboard](https://ojin.ai/dashboard); see [Ojin's config ID guide](https://docs.ojin.ai/models/build-with-python-sdk.md#requirements) |
+| `LIVEKIT_URL`, `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET` | Connect the agent and web app to a LiveKit project | Create a project in [LiveKit Cloud](https://cloud.livekit.io/); see [LiveKit's quickstart](https://docs.livekit.io/agents/start/voice-ai/) |
+| `DEEPGRAM_API_KEY` | Speech recognition (STT) | Create a key in the [Deepgram Console](https://console.deepgram.com/); see [Deepgram's key guide](https://developers.deepgram.com/docs/create-additional-api-keys) |
+| `OPENAI_API_KEY` | Language model (LLM) | [OpenAI API keys](https://platform.openai.com/api-keys) |
+| `ELEVEN_API_KEY` | Speech synthesis (TTS) | [ElevenLabs API keys](https://elevenlabs.io/app/developers/api-keys) |
+
+The env examples also include optional settings such as `OJIN_WS_URL`,
+`ELEVEN_VOICE_ID`, and keys for alternate pipelines. The default pipeline does
+not need those optional values.
 
 ## Setup
 
 1. Install dependencies:
 
 ```bash
+# Install Python 3.12 if no compatible version is available
+uv python install 3.12
+
+# Install the agent dependencies
 uv sync
+```
+
+```bash
 cd web && pnpm install
 ```
 
@@ -24,7 +77,7 @@ cd web && pnpm install
 cp .env.example .env
 ```
 
-3. Create `web/.env.local` with your LiveKit credentials:
+3. Create `web/.env.local` with the same three LiveKit values from `.env`:
 
 ```env
 LIVEKIT_API_KEY=your_api_key
@@ -44,6 +97,7 @@ uv run python agent.py dev
 cd web && pnpm dev
 ```
 
-The frontend defaults to port 3333. Override it with `PORT=4444 pnpm dev` if needed.
+The frontend defaults to port 3333. Override it with
+`PORT=4444 pnpm dev` if needed.
 
 Open [http://localhost:3333](http://localhost:3333) and click **Start Session** to begin a conversation with the avatar.
