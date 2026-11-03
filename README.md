@@ -6,30 +6,9 @@ A LiveKit agent with an Ojin avatar frontend for real-time interactive avatar se
 
 Copy this prompt into your coding agent for step-by-step setup:
 
-<details>
-<summary>Show setup prompt</summary>
-
 ```text
-Help me run the Ojin LiveKit avatar demo: https://github.com/ojinai/livekit-demo
-
-Use this repository if present; otherwise clone it. Read its README and
-credential checklist. Give me exactly one action per reply; wait for my
-confirmation and don't preview later steps.
-
-Check installed tools first. If uv is missing, follow
-https://docs.astral.sh/uv/getting-started/installation/. If Python 3.12 is
-missing, install it with `uv python install 3.12`. Check for pnpm; if it's
-missing, guide me through the simplest supported setup using
-https://pnpm.io/installation if needed.
-
-For each credential, link its official source and tell me which local env file
-to fill in. Never ask me to paste secrets or print their values. When setup is
-complete, start the agent and web app and give me the local URL. If anything
-fails, explain the issue and next action. Don't change source code without my
-approval.
+Help me run the Ojin LiveKit avatar demo: https://github.com/ojinai/livekit-demo. Use this repository if present; otherwise clone it. Read its README and credential checklist. Give me exactly one action per reply; wait for my confirmation and don't preview later steps. Check installed tools first. If uv is missing, follow https://docs.astral.sh/uv/getting-started/installation/. If Python 3.12 is missing, install it with `uv python install 3.12`. Check for pnpm; if missing, guide me through the simplest supported setup using https://pnpm.io/installation if needed. For each credential, link its official source and tell me which local env file to fill in. Never ask me to paste secrets or print their values. When setup is complete, start the agent and web app and give me the local URL. If anything fails, explain the issue and next action. Don't change source code without my approval.
 ```
-
-</details>
 
 ## Prerequisites
 
