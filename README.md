@@ -4,30 +4,32 @@ A LiveKit agent with an Ojin avatar frontend for real-time interactive avatar se
 
 ## Run the demo with an AI coding agent
 
-Copy this prompt into your coding agent to get help setting up the demo:
+Copy this prompt into your coding agent for step-by-step setup:
+
+<details>
+<summary>Show setup prompt</summary>
 
 ```text
-Help me run the Ojin LiveKit avatar demo:
-https://github.com/ojinai/livekit-demo
+Help me run the Ojin LiveKit avatar demo: https://github.com/ojinai/livekit-demo
 
-If this repository is not already in your workspace, clone it from the URL
-above. Then read its current README and guide me through setup. Give me exactly
-one action per reply, then wait for me to confirm before giving the next action;
-do not list later steps in advance. Check the installed tools before asking me
-to install anything. If uv is missing, guide me through installing it using the
-official instructions at https://docs.astral.sh/uv/getting-started/installation/.
-If uv is available but no compatible Python is installed, use
-`uv python install 3.12` instead of sending me to install Python separately.
-Check whether pnpm is available. If it is not, determine the simplest way to
-run it on this machine and guide me through that setup, using the official
-instructions at https://pnpm.io/installation if needed.
-Use the credential checklist to tell me which account or value to get next, and
-link to the official page. Do not ask me to paste secrets into chat: tell me
-which local env file to fill in and never print its contents. Once setup is
-complete, start the agent and web app and give me the local URL to open. If
-anything fails, explain the issue and the next action. Do not change source code
-unless I approve first.
+Use this repository if present; otherwise clone it. Read its README and
+credential checklist. Give me exactly one action per reply; wait for my
+confirmation and don't preview later steps.
+
+Check installed tools first. If uv is missing, follow
+https://docs.astral.sh/uv/getting-started/installation/. If Python 3.12 is
+missing, install it with `uv python install 3.12`. Check for pnpm; if it's
+missing, guide me through the simplest supported setup using
+https://pnpm.io/installation if needed.
+
+For each credential, link its official source and tell me which local env file
+to fill in. Never ask me to paste secrets or print their values. When setup is
+complete, start the agent and web app and give me the local URL. If anything
+fails, explain the issue and next action. Don't change source code without my
+approval.
 ```
+
+</details>
 
 ## Prerequisites
 
